@@ -1,0 +1,21 @@
+### Notacao de como será chamado cada função
+## Valores das operacoes
+# Deque() -- 0
+# PushFront(d, x) -- 1 
+# PushBack(d,x) -- 2
+# PopFront(d) -- 3
+# PopBack(d) -- 4
+
+## 
+# Deque -- [operacao] [deque_de_recebimento]
+# PushFront ou PushBack -- [operacao] [deque_de_recebimento] [deque_argumento] [valor_argumento]
+# PopFront ou PopBack -- [operacao] [deque_de_recebimento] [deque_argumento]
+
+
+0 0
+2 1 0 3
+2 2 1 4
+1 3 2 2
+1 4 3 1
+4 5 3
+4 6 5
