@@ -2,29 +2,27 @@
 using namespace std;
 
 vector<int> visited;
+vector<int> range;
 size_t n ;
 int min_jumps, pos;
 
 class Solution {
 public:
-    int pulo(vector<int>& nums, int salto, int current_jumps) {
+    void pulo(vector<int>& nums, int salto, int current_jumps) {
         current_jumps++;
         if (pos+salto >= n-1) {
             min_jumps = (current_jumps < min_jumps) ? current_jumps : min_jumps;
-            return pos+salto;
+            return;
         }
         int current_pos = pos;
-        int max_range = 0;
-        int range;
         for (int i = salto; i > 0; i--) {
             pos = current_pos + i;
-            if (pos > max_range) {
-                range = pulo(nums, nums[pos], current_jumps);
-                max_range = (range > max_range) ? range : max_range; 
+            if (current_jumps < range[pos]) {
+                range[pos] = current_jumps;
+                pulo(nums, nums[pos], current_jumps);
             }
         }
-
-        return max_range;
+        return;
     }
 
 /*
@@ -54,8 +52,10 @@ public:
         min_jumps = n+1;
         pos = 0;
         visited.resize(n);
+        range.resize(n);
         for (int i = 0; i < n; i++) {
             visited[i] = 0;
+            range[i] = n+1;
         }
         pulo(nums, nums[0], current_jumps);
         return min_jumps;
