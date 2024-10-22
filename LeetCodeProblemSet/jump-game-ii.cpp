@@ -44,6 +44,24 @@ public:
 
 
     */
+    int jump_optimized(vector<int>& nums) {
+        n = nums.size();
+        if (n == 1) return 0;
+        int near, far, farthest;
+        near = 0;
+        far = 0;
+        int jumps = 0;
+        while (far < n-1) {
+            farthest = 0;
+            for (int i = near; i < far+1; i++) {
+                farthest = (farthest >= nums[i]+i) ? farthest : nums[i]+i;
+            }
+            near = far + 1;
+            far = farthest;
+            jumps++;
+        }
+        return jumps;
+    }
 
     int jump(vector<int>& nums) {
         n = nums.size();
@@ -109,66 +127,66 @@ int main() {
     Solution solution;
     vector<int> v = {2,3,1,1,4};
     int i = 0;
-    // cout << "Teste: " << i << endl;
-    // for (const int& number : v) {
-    //     cout << number << " ";
-    // }
-    // cout << endl;
-    // cout << solution.jump(v) << endl;
+    cout << "Teste: " << i << endl;
+    for (const int& number : v) {
+        cout << number << " ";
+    }
+    cout << endl;
+    cout << solution.jump(v) << endl;
     
-    // i++;
-    // v = {3,0,1,4};
-    // cout << "Teste: " << i << endl;
-    // for (const int& number : v) {
-    //     cout << number << " ";
-    // }
-    // cout << endl;
-    // cout << solution.jump(v) << endl;
+    i++;
+    v = {3,0,1,4};
+    cout << "Teste: " << i << endl;
+    for (const int& number : v) {
+        cout << number << " ";
+    }
+    cout << endl;
+    cout << solution.jump(v) << endl;
 
-    // i++;
-    // v = {1,2,1,4};
-    // cout << "Teste: " << i << endl;
-    // for (const int& number : v) {
-    //     cout << number << " ";
-    // }
-    // cout << endl;
-    // cout << solution.jump(v) << endl;
+    i++;
+    v = {1,2,1,4};
+    cout << "Teste: " << i << endl;
+    for (const int& number : v) {
+        cout << number << " ";
+    }
+    cout << endl;
+    cout << solution.jump(v) << endl;
 
-    // i++;
-    // v = {1};
-    // cout << "Teste: " << i << endl;
-    // for (const int& number : v) {
-    //     cout << number << " ";
-    // }
-    // cout << endl;
-    // cout << solution.jump(v) << endl;
+    i++;
+    v = {1};
+    cout << "Teste: " << i << endl;
+    for (const int& number : v) {
+        cout << number << " ";
+    }
+    cout << endl;
+    cout << solution.jump(v) << endl;
 
-    // i++;
-    // v = {5, 9};
-    // cout << "Teste: " << i << endl;
-    // for (const int& number : v) {
-    //     cout << number << " ";
-    // }
-    // cout << endl;
-    // cout << solution.jump(v) << endl;
+    i++;
+    v = {5, 9};
+    cout << "Teste: " << i << endl;
+    for (const int& number : v) {
+        cout << number << " ";
+    }
+    cout << endl;
+    cout << solution.jump(v) << endl;
 
-    // i++;
-    // v = {1, 1, 1, 1, 1, 9};
-    // cout << "Teste: " << i << endl;
-    // for (const int& number : v) {
-    //     cout << number << " ";
-    // }
-    // cout << endl;
-    // cout << solution.jump(v) << endl;
+    i++;
+    v = {1, 1, 1, 1, 1, 9};
+    cout << "Teste: " << i << endl;
+    for (const int& number : v) {
+        cout << number << " ";
+    }
+    cout << endl;
+    cout << solution.jump(v) << endl;
 
-    // i++;
-    // v = {2,0,1,4};
-    // cout << "Teste: " << i << endl;
-    // for (const int& number : v) {
-    //     cout << number << " ";
-    // }
-    // cout << endl;
-    // cout << solution.jump(v) << endl;
+    i++;
+    v = {2,0,1,4};
+    cout << "Teste: " << i << endl;
+    for (const int& number : v) {
+        cout << number << " ";
+    }
+    cout << endl;
+    cout << solution.jump(v) << endl;
 
     i++;
     v = {5,6,4,4,6,9,4,4,7,4,4,8,2,6,8,1,5,9,6,5,2,7,9,7,9,6,9,4,1,6,8,8,4,4,2,0,3,8,5};
