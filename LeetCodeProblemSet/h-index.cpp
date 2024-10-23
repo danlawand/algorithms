@@ -1,8 +1,25 @@
 #include <bits/stdc++.h>
+#include <algorithm> 
 using namespace std;
 
 class Solution {
 public:
+    int hIndex_optimized(vector<int>& citations) {
+        int papers = static_cast<int>(citations.size());
+        vector<int> citation_buckets(papers+1);
+        for (int j = 0; j < papers; j++) {citation_buckets[j] = 0;}
+        for (int j = 0; j < papers; j++) {citation_buckets[min(citations[j], papers)] += 1;}
+
+        int cumulative_papers = 0;
+        for (int h_index = papers; h_index >= 0; h_index--) {
+            cumulative_papers += citation_buckets[h_index];
+            if (cumulative_papers >= h_index) {
+                return h_index;
+            }
+        }
+        return 0;
+    }
+
     int hIndex(vector<int>& citations) {
         sort(citations.begin(), citations.end());
         size_t n = citations.size();
@@ -43,7 +60,7 @@ int main() {
         cout << number << " ";
     }
     cout << endl;
-    cout << "Answer: "<< solution.hIndex(v) << " -- Expected: " << expected << endl;
+    cout << "Answer: "<< solution.hIndex_optimized(v) << " -- Expected: " << expected << endl;
 
     i++;
     v = {1,3,1};
@@ -53,7 +70,7 @@ int main() {
         cout << number << " ";
     }
     cout << endl;
-    cout << "Answer: "<< solution.hIndex(v) << " -- Expected: " << expected << endl;
+    cout << "Answer: "<< solution.hIndex_optimized(v) << " -- Expected: " << expected << endl;
 
     i++;
     v = {0};
@@ -63,5 +80,5 @@ int main() {
         cout << number << " ";
     }
     cout << endl;
-    cout << "Answer: "<< solution.hIndex(v) << " -- Expected: " << expected << endl;
+    cout << "Answer: "<< solution.hIndex_optimized(v) << " -- Expected: " << expected << endl;
 }
