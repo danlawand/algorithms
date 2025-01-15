@@ -88,7 +88,7 @@ public:
         return sum-to_remove;
     }
 
-    int candy(vector<int>& r) {
+    int __candy(vector<int>& r) {
         int n = static_cast<int>(r.size());
         if (n == 1) { return 1;}
         vector<int> seq;
@@ -181,6 +181,115 @@ public:
         return sum;
     }
 
+    int candy(vector<int>& ratings) {
+        int n = static_cast<int>(ratings.size());
+        if (n == 1) { return 1;}
+        vector<int> seq;
+
+        // int min = 20000, min_index;
+        // for (int i = 0; i < n; i++) {
+        //     seq.push_back(1);
+        //     // Find the minimum values indexes
+        //     if (ratings[i] <= min) {
+        //         min = ratings[i];
+        //         min_index = i;
+        //     }
+        // }
+        int l, r;
+        int sum = 0;
+        int incr;
+
+        if (ratings[0] > ratings[1]) {
+            incr = 1;
+        } else if (ratings[0] < ratings[1]) {
+            incr = -1;
+        } else {
+            incr = 0;
+        }
+
+        int seq_ele = 0;
+        for (int s = 0; s < n; s++) {
+            l = s - 1;
+            r = s + 1;
+
+            if (l < 0) {
+                if (ratings[s] > ratings[r]) {
+                    incr = -1;
+                    seq_ele++;
+                } else if (ratings[s] < ratings[r]) {
+                    incr = 1;
+                    seq_ele++;
+                } else {
+                    incr = 0;
+                    seq_ele++;
+                }
+            } else if (r >= n) {
+                if (ratings[l] > ratings[s]) {
+                    if (incr == -1) {
+                        seq_ele++;
+                    } else if (incr == 1) {
+                        // Encerra a contagem no elemento s fazendo a PA com razão 1
+                        // E adiciona +1 (PA de apenas o elemento atual)
+                    } else{
+                        // Encerra a contagem no elemento l, fazendo a PA com razão seria 0
+                        // E finaliza com a PA de (l, s)
+                    }
+                    incr = -1;
+                } else if (ratings[l] < ratings[s]) {
+                    if (incr == -1) {
+                        // Encerra a contagem no elemento s fazendo a PA com razão 1
+                        // E adiciona +2 (pq sei que a seq anterior é decrescent, portanto l = 1) 
+                    } else if (incr == 1) {
+                        seq_ele++;
+                    } else{
+                        // Isso está certo? 1 2 2(l) 3(s) != 2 2 2(l) 3(s)
+                        // Encerra a contagem no elemento l, fazendo a PA com razão seria 0
+                        // E finaliza com a PA de (l, s)
+                    }
+                    incr = 1;
+                } else {
+                    incr = 0;
+                    seq_ele++;
+                }
+            } else {
+
+            }
+
+        }
+        
+        while (l >= 0 || r < n) {
+            l = start_l - 1;
+            r = start_r + 1;
+            if (l >=0) {
+                if (ratings[l] > ratings[start_l]) {
+                    seq[l] = seq[start_l]+1;
+                } else if (ratings[l] < ratings[start_l]) {
+                    seq[l] = seq[start_l]-1;
+                } else {
+                    if (l-1 >= 0) {
+                        if (ratings[l] > ratings[l-1]) {
+                            seq[l] = 0;
+                        } else {
+                            seq[l] = 1;
+                        }
+                }
+            }
+
+            if (r < n) {
+                if (ratings[r] > ratings[start_r]) {
+                    seq[r] = seq[start_r]+1;
+                } else if (ratings[r] < ratings[start_r]) {
+                    seq[r] = seq[start_r]-1;
+                } else {
+                    seq[r] = 1;
+                }
+            }
+
+            start_r = r;
+            start_l = l; 
+        }
+    }
+
 };
 
 
@@ -222,8 +331,13 @@ int main() {
 //     e = 4; // 1 2 1 
 //     cout << "Expected: " << e << " -> Actual: " << endl << sol.candy(r) << endl;
 
-    r = {1, 0, 1, 1, 1, 1, 0};
-    e = 10; // 2 1 2 1 1 2 1 
+    // r = {1, 0, 1, 1, 1, 1, 0};
+    // e = 10; // 2 1 2 1 1 2 1 
+    // cout << "Expected: " << e << " -> Actual: " << endl << sol.candy(r) << endl;
+
+
+    r = {2, 3, 0, 0, 0, 1, 2, 5, 5, 5, 4, 2, 3, 3, 2};
+    e = 27; //  
     cout << "Expected: " << e << " -> Actual: " << endl << sol.candy(r) << endl;
 
 }
