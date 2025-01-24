@@ -10,30 +10,16 @@ public:
         vector<string> matrix(numRows);
 
         int i = 0;
-        bool flag = false;
-        // enquanto tiver char disponivel
         while (i < s.length()) {
             // Faz a linha de decida
-            for (int j = 0; j < numRows; j++) {
-                if (i >= s.length()) {
-                    flag = true;
-                    break;
-                }
+            for (int j = 0; j < numRows && i < s.length(); j++) {
                 matrix[j].push_back(s[i++]);
             }
-            if (flag) {break;}
-
             // Faz a subida (cresce na diagonal)
-            for (int j = numRows-2; j > 0; j--) {
-                if (i >= s.length()) {
-                    flag = true;
-                    break;
-                }
+            for (int j = numRows-2; j > 0 && i < s.length(); j--) {
                 matrix[j].push_back(s[i++]);
             }
-            if (flag) {break;}
         }
-        
         string ans = "";
         for (i = 0; i < numRows; i++) {
             ans = ans + matrix[i];
