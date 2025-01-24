@@ -32,15 +32,19 @@ public:
     }
 
     string optimLongestCommonPrefix(vector<string>& strs) {
-        int n = strs.size();
-        for (int i = 0; i < strs[0].size(); ++i) {
-            for (int j = 1; j < n; ++j) {
-                if (strs[j].size() <= i || strs[j][i] != strs[0][i]) {
-                    return strs[0].substr(0, i);
-                }
+        sort(strs.begin(), strs.end());
+        string s0 = strs[0];
+        string sn = strs[static_cast<int>(strs.size())-1];
+        int index = 0;
+        while (index < s0.length() && index < sn.length()) {
+            if (s0[index] == sn[index]) {
+                index++;
+            } else {
+                break;
             }
         }
-        return strs[0];
+
+        return s0.substr(0, index);
     }
 };
 
