@@ -43,7 +43,6 @@ public:
                 break;
             }
         }
-
         return s0.substr(0, index);
     }
 };
