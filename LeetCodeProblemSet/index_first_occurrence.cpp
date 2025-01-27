@@ -5,23 +5,17 @@ using namespace std;
 class Solution {
 public:
     int strStr(string haystack, string needle) {
+        // Time: O((n-m)*m) == O(nm - m^2)
         int n, m;
         n = haystack.length();
         m = needle.length();
-        if (m > n) {
-            return -1;
-        }
         int ans;
-
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n-m+1; i++) {
             ans = -1;
             if (haystack[i] == needle[0]) {
                 ans = i;
 
                 for (int j = 0; j < m; j++) {
-                    if (i+j > n-1) {
-                        return -1;
-                    }
                     if (haystack[i+j] != needle[j]) {
                         ans = -1;
                     }
