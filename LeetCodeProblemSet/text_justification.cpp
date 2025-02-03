@@ -14,6 +14,7 @@ public:
         string line = "";
         int line_size = 0, n_lines = 0;
         for (int i = 0; i < n; i++) {
+            vai_um = 0;
             if (line_size + words[i].length() < maxWidth) {
                 line_helper.push_back(words[i]);
                 // +1 the space
@@ -41,7 +42,11 @@ public:
                     if (line_helper.size() == 1) {
                         n_spaces += vai_um;
                     }
-                    line = line_helper.back() + n_spaces*" " + line;
+                    string white_spaces = "";
+                    for (int k = 0; k < n_spaces; k++) {
+                        white_spaces += " ";
+                    }
+                    line = line_helper.back() + white_spaces + line;
                     line_helper.pop_back();
                 }
                 vai_um = 0;
@@ -54,15 +59,41 @@ public:
 
             }
         }
-
+        return ""; 
     }
 };
 
 
 int main() {
-    vector<string> w, ans;
-    int m;
+    vector<string> words, ans, e;
+    int maxWidth;
     Solution sol = Solution();
 
+    words = {"Science","is","what","we","understand","well","enough","to","explain","to","a","computer.","Art","is","everything","else","we","do"};
+    maxWidth = 20;
+    e = {
+    "This    is    an",
+    "example  of text",
+    "justification.  "
+    };
 
+    ans = sol.fullyJustify(words, maxWidth);
+
+    words = {"What","must","be","acknowledgment","shall","be"};
+    maxWidth = 16;
+    e = {
+    "What   must   be",
+    "acknowledgment  ",
+    "shall be        "
+    };
+    words = {"This", "is", "an", "example", "of", "text", "justification."};
+    maxWidth = 16;
+    e = {
+    "Science  is  what we",
+    "understand      well",
+    "enough to explain to",
+    "a  computer.  Art is",
+    "everything  else  we",
+    "do                  "
+    };
 }
